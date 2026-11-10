@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <h1>Change profile picture</h1>
+
+  {% if user.profile_picture %} 
+      <img src="{{ user.profile_picture.url }}" alt="Current picture" class="profile_picture">
+  {% else %}
+      <img src="{% static 'img/default-avatar.svg' %}" alt="No profile picture" class="profile_picture">
+  {% endif %}
+
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <label for="{{ form.profile_picture.id_for_label }}" class="upload-button"></label>
+    {{ form.profile_picture }}
+    {{ form.profile_picture.errors }}
+  </form>
+
+
+  {% if user.profile_picture %}
+    <form method="post" action="{% url 'delete_profile_picture' %}" class="remove-button" style="margin-top: 10px;">
+      {% csrf_token %}
+      <button type="submit">Remove picture</button>
+    </form>
+  {% endif %}
+
+    <p><a href="{% url 'home' %}">Cancel</a></p>
+{% endblock %}

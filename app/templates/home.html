@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% for message in messages %}
+  <p>{{ message }}</p>
+{% endfor %}
+
+<h1>Welcome, {{ user.username }}!</h1>
+
+{% if user.profile_picture %}
+  <img src="{{ user.profile_picture.url }}" alt="Current picture" class="profile_picture">
+{% else %}
+  <img src="{% static 'img/default-avatar.svg' %}" alt="No profile picture" class="profile_picture">
+{% endif %}
+
+<p><a href="{% url 'change_profile_picture' %}">Change picture</a></p>
+
+<form method="post" action="{% url 'logout' %}">
+  {% csrf_token %}
+  <button type="submit">Log out</button>
+</form>
+
+{% endblock %}

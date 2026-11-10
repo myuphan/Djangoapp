@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Log in</h1>
+
+{% for message in messages %}
+<p class="errorlist">{{message}}</p>
+{% endfor %}
+
+<form method="post" action="{%url 'login'%}"> {#form is used here to collect the info in the box and send it at one #}
+  {% csrf_token %}
+  <p><input name="username" placeholder="Username" required></p>
+  <p><input name="password" type="password" placeholder="Password" required></p>
+  <button type="submit">Log in</button>
+</form>
+
+<p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
+<p>No account? <a href="{% url 'signup' %}">Sign up</a></p>
+{% endblock %}
+
+
+

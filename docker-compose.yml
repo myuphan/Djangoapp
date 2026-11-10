@@ -1,0 +1,32 @@
+# docker-compose.yml: runs several containers together on your laptop.
+# Run with:  docker compose up --build
+# (On AWS, ECS does this job instead.)
+
+services:
+  # GIVEN: the Postgres database
+  db:
+    image: postgres:16-alpine
+    env_file: .env            # reads POSTGRES_DB / USER / PASSWORD from .env
+    volumes:
+      - pgdata:/var/lib/postgresql/data   # pgdata is storage that kept outside the container handled by docker. docker end => data alive
+    healthcheck:                                    # "is PostgreSQL ready?"
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  web:
+    build: . #current follder - follow dockerfile steps and build 
+    env_file: .env
+    ports: ["8000:8000"]
+    command: sh -c "python manage.py migrate --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 2 --access-logfile -"
+
+    volumes:
+      - media:/app/media
+    depends_on: 
+        db:
+          condition: service_healthy #wait for db healthy then start the app
+
+volumes:
+  pgdata:
+  media:
+

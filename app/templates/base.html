@@ -1,0 +1,25 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phan's Project</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+  <style>
+  .profile_picture {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <a href="{% url 'home' %}">Log in Phan's project</a>   {# click → go home. HOME is modified for auth user and login for not authorized #}
+  </header>
+  <main>{% block content %}{% endblock %}</main>   {# each page fills this slot #}
+</body>
+</html>
