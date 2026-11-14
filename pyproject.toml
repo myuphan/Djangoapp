@@ -11,3 +11,4 @@ select = ["E", "F", "I", "B"]
 DJANGO_SETTINGS_MODULE = "config.settings"
 pythonpath = ["app"]
 testpaths = ["app"]
+python_files = ["tests.py", "test_*.py"]
