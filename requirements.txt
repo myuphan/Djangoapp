@@ -3,4 +3,4 @@ gunicorn>=23,<24
 whitenoise>=6.8,<7
 psycopg[binary]>=3.2,<4
 pillow>=11
-python-dotenv>=1.0
+python-dotenv>=1.2.4
