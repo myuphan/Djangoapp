@@ -2,7 +2,7 @@
 # Each line is one step. Docker caches steps, so order matters for speed.
 
 # TODO 1: start from an official slim Python 3.12 image.   (FROM ...)
-FROM python:3.12-slim
+FROM python:3.15-slim
 
 RUN apt-get update && apt-get upgrade -y && rm -rf /var/lib/apt/lists/*
 
