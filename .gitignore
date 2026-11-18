@@ -7,3 +7,10 @@ app/staticfiles/
 .pytest_cache/
 .ruff_cache/
 app/media/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+crash.log
